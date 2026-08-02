@@ -2,22 +2,20 @@
 
 ## 1. Kịch bản và màn hình
 - Kịch bản đã chọn: **A — Admin creates and manages events**
-- Màn hình 1: **A1 (Events list)** - Lý do chọn: Bao quát luồng xem danh sách tổng tổng quan, chứa các bộ lọc (filter), chấm thông báo (notification dots) và điều hướng chính của Admin.
+- Màn hình 1: **A1 (Events list)** - Lý do chọn: Bao quát luồng xem danh sách tổng tổng quan, chứa các bộ lọc, chấm thông báo  và điều hướng chính của Admin.
 - Màn hình 2: **A2 (Add/Edit Event form)** - Lý do chọn: Đây là form nhập liệu phức tạp nhất, chứa upload ảnh (4:3, 24:9), Rich-Text editor và validation ngày/giờ, bao phủ phần lớn các tiêu chí về Forms (IA-02).
-- Màn hình 3: **A4 (Participants & Reviews)** - Lý do chọn: Có các thanh trạng thái tiến độ (progress bar), chức năng Export ra Excel và xử lý dữ liệu người dùng, phục vụ tốt cho việc đánh giá Feedback / State (IA-04).
+- Màn hình 3: **A4 (Participants & Reviews)** - Lý do chọn: Có các thanh trạng thái tiến độ, chức năng Export ra Excel và xử lý dữ liệu người dùng, phục vụ tốt cho việc đánh giá Feedback / State (IA-04).
 
 ## 2. Kết quả chạy Checklist
-- Màn hình A1: Pass [X]/[Y], Fail [Z]/[Y]
-- Màn hình A2: Pass [X]/[Y], Fail [Z]/[Y]
-- Màn hình A4: Pass [X]/[Y], Fail [Z]/[Y]
-
-*(Ghi chú: Thay [X], [Y], [Z] bằng số liệu thực tế sau khi hoàn thành bảng trong Execution_Report.md)*
+- Màn hình A1 (Events list): Pass 14/24, Fail 10/24
+- Màn hình A2 (Add/Edit Event form): Pass 20/29, Fail 9/29
+- Màn hình A4 (Participants & Reviews): Pass 17/27, Fail 10/27
 
 ## 3. Báo cáo Cross-Platform
 Ma trận tối giản Cross-Browser / Cross-Platform (5 Test Cases đáp ứng đủ độ phủ yêu cầu: 3 OS × 5 Browser × 3 Thiết bị).
 
 - Hệ điều hành đã thử: Windows, macOS, iOS, Android
-- Browser đã thử: Chrome, Safari, Firefox, Edge, Opera (hoặc Samsung Internet)
+- Browser đã thử: Chrome, Safari, Firefox, Edge, Opera
 - Thiết bị đã thử: Desktop, Tablet, Phone
 
 | Test Case | Thiết bị (Device) | Hệ điều hành (OS) | Trình duyệt (Browser) | Mục tiêu phủ (Coverage) | Màn hình | Pass/Fail | Ghi chú lỗi | Link ảnh |
