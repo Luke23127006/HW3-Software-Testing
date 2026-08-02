@@ -181,3 +181,69 @@ Màn hình A2 đảm bảo tốt tính đồng nhất về nhận diện hình �
 1. Thiếu cảnh báo dung lượng/định dạng khi upload file (IA02-03).
 2. Thiếu thuộc tính trợ năng `required` cho các trường bắt buộc (IA02-01) và `title` cho các nút ở trình soạn thảo Rich-text (IA02-05).
 3. Thiếu văn bản hướng dẫn bổ sung cho các công tắc chức năng (IA02-07).
+
+---
+
+# Phân tích màn hình A4_review (Participants & Reviews - Review Students tab)
+
+Dựa trên HTML (`page.html`) và ảnh chụp màn hình cho kịch bản A4 (quản lý người tham gia - tab Review Students), dưới đây là kết quả phân tích theo các tiêu chí kiểm thử UI/UX:
+
+## IA-01 — General UI Standards
+
+| Item ID | Trạng thái | Notes / Phân tích chi tiết |
+| :--- | :--- | :--- |
+| **IA01-01** | Pass | Bố cục danh sách rõ ràng, khoảng cách dòng (padding/margin) trong bảng được giữ hợp lý. |
+| **IA01-02** | Pass | Các icon (sidebar, search, chevron) đồng nhất về kích thước và nét vẽ so với các màn hình khác. |
+| **IA01-03** | Pass | Nút Call-to-action chính "Apply" (hoặc "Events Management" đang active ở sidebar) sử dụng màu xanh lơ đặc trưng, các nút phụ sử dụng nền nhạt (như Reject All, Approve All). |
+| **IA01-04** | N/A | Không có cấu trúc Form với Section Headers trên giao diện này. |
+| **IA01-05** | Pass | Thẻ trạng thái "PUBLISHED" sử dụng nền xanh lá nhạt với chữ xanh lá đậm, đảm bảo độ tương phản (Contrast) tốt cho văn bản. Thẻ "Pending Review" dùng màu vàng cam đậm chữ trắng cũng tương phản tốt. |
+| **IA01-06** | Pass | Hệ thống có hiển thị Empty state khi danh sách rỗng (đã xác nhận qua ảnh chụp bổ sung). |
+| **IA01-07** | **Fail** | Hoàn toàn không có Loading state (spinner/skeleton) trong lúc chờ tải dữ liệu, bảng chỉ trống trơn gây khó hiểu cho người dùng. |
+| **IA01-08** | Pass | Tính năng chuyển ngữ EN/VI hoạt động mượt mà với các nội dung tĩnh. |
+| **IA01-09** | Pass | Định dạng locale hoạt động mượt mà (cùng với tính năng i18n). |
+| **IA01-10** | N/A | Hero Banner không áp dụng. |
+| **IA01-11** | N/A | QR Code không có mặt trên tab Review Students này. |
+| **IA01-12** | Pass | Mã nguồn có các class outline focus (đã chứng minh được trên A1/A2). |
+| **IA01-13** | Pass | Ảnh đại diện (avatar) của sinh viên có thuộc tính `aria-label="Lam Truong Hoang"`, đảm bảo screen reader có thể đọc tên thay vì bỏ qua, trong khi các text rút gọn bên trong (LTH) nằm trong thẻ nội dung. |
+
+## IA-02 — Forms
+*(Giao diện A4 chủ yếu là một data table với các action inline, phần lớn các tiêu chí của Form Validation không áp dụng được trên ảnh tĩnh)*
+
+| Item ID | Trạng thái | Notes / Phân tích chi tiết |
+| :--- | :--- | :--- |
+| **IA02-10** | Pass | Hệ thống tự động tìm kiếm ngay khi người dùng nhập từ khóa mà không cần nhấn Enter, rất tiện lợi. |
+| **IA02-12** | **Fail** | Tính năng điều hướng bằng bàn phím (Keyboard Accessibility) bị lỗi nghiêm trọng: không thể dùng phím để chọn các action quan trọng (Reject, Pending, Approved) cho từng học sinh, dù các vùng khác vẫn tab được. |
+| **Các tiêu chí IA02 khác** | N/A | Không áp dụng cho bảng dữ liệu này. |
+
+## IA-03 — Navigation
+
+| Item ID | Trạng thái | Notes / Phân tích chi tiết |
+| :--- | :--- | :--- |
+| **IA03-01** | Pass | Mục "Events Management" trên Sidebar được highlight nổi bật đúng ngữ cảnh. |
+| **IA03-02** | Pass | Chức năng Tabs (Details, Check-in...) hiển thị rõ ràng, tab "Review Students" đang active có màu nền xanh nổi bật và thẻ HTML sử dụng đúng chuẩn `role="tab"` và `aria-selected="true"`. |
+| **IA03-03** | Pass | Xuất hiện huy hiệu (dot) thông báo màu đỏ trên các tab "Review Lecturers" và "Review Students", cũng như huy hiệu số đếm "7" ở sidebar Support requests, báo hiệu có mục cần xử lý. |
+| **IA03-04** | **Fail** | Có nút mũi tên "←" quay lại nằm ở cạnh tên sự kiện, tuy nhiên kiểm tra HTML cho thấy thẻ `<a>` này chỉ chứa SVG (với `aria-hidden="true"`) mà hoàn toàn **không có `aria-label`** (thiếu tên trợ năng). Screen reader sẽ chỉ đọc là "Link" mà không hiểu chức năng là gì. |
+| **IA03-05** | N/A | Tính năng Status filter (Upcoming/Ended) không áp dụng ở bảng Review này. |
+| **IA03-06** | Pass | Bảng dữ liệu có phân trang hiển thị label chính xác ("1-3 of 3 results") và đầy đủ dropdown chọn Rows per page cũng như nút điều hướng (giống A1). |
+| **IA03-07** | **Fail** | Xử lý Deep-links kém: dán link vào tab ẩn danh bị văng ra trang login. Khi mở link, hệ thống mặc định nhảy về tab đầu tiên và không highlight trạng thái tab, cũng không có trang 404 thân thiện. |
+| **IA03-08** | **Fail** | Bảng có các cột dữ liệu ("STUDENT", "REGISTERED AT") nhưng **hoàn toàn không có chức năng Sorting (sắp xếp)**. Theo chuẩn Checklist, việc thiếu vắng hoàn toàn tính năng sắp xếp trên các danh sách dữ liệu dài là một lỗi về Usability. |
+| **IA03-09** | Pass | Tên sự kiện ("Machine Learning Hands-On Workshop") luôn được ghim cố định ở Header khi chuyển qua các sub-tab, giúp Admin không bị quên ngữ cảnh đang xử lý cho sự kiện nào. |
+| **IA03-10** | N/A | Modal / phím ESC không áp dụng. |
+| **IA03-11** | **Fail** | Màn hình này nằm ở cấp bậc thứ 3 trong kiến trúc thông tin (Events list -> Event Detail -> Review Students tab), tuy nhiên **hệ thống không cung cấp Breadcrumbs** nào để người dùng có thể nhảy vọt về các cấp tổ tiên ngoài nút Back 1 cấp. Đây là một điểm trừ lớn về định vị. |
+| **IA03-13** | **Fail** | Nút Browser Back Button gây mất dữ liệu (reset trạng thái) khi thao tác, không lưu lại ngữ cảnh dở dang. |
+
+## IA-04 — Feedback / State
+
+| Item ID | Trạng thái | Notes / Phân tích chi tiết |
+| :--- | :--- | :--- |
+| **IA04-01** | Pass | Màu sắc trạng thái gán rất chuẩn: "PUBLISHED" (màu xanh dương nhạt/lục nhạt mang tính ổn định), "Pending Review" (màu cam vàng mang ý nghĩa chờ xử lý/cần chú ý). |
+| **IA04-03** | Pass | Hệ thống có hiển thị Confirmation dialog sau khi người dùng chọn action và nhấn nút Apply. |
+| **IA04-04 & IA04-12** | **Fail** | Hoàn toàn không có thông báo Toast (feedback) nào hiển thị sau khi thực hiện thao tác thành công. |
+| **IA04-11** | **Fail** | Khi mất kết nối (Offline), hệ thống không báo lỗi gì và bị kẹt cứng (không thể thao tác chuyển tab). |
+| **Các tiêu chí IA04 khác** | N/A | Không áp dụng cho giao diện này. |
+
+### Kết luận A4
+Màn hình A4 (Participants & Reviews) làm rất tốt ở khâu hiện thị trạng thái thông báo (Pending badges) và thẻ tab rõ ràng. Tuy nhiên, các lỗi về Điều hướng (Navigation - IA-03) lại hiện rõ:
+1. Thiếu mất thuộc tính trợ năng (`aria-label`) cho nút Back, gây khó khăn cho người khiếm thị (IA03-04).
+2. Hoàn toàn không có khả năng Sắp xếp (Sorting) cho bảng danh sách người đăng ký, vốn rất cần thiết khi sự kiện có hàng trăm sinh viên (IA03-08).
+3. Đã đi sâu vào cấp độ 3 của phân cấp trang nhưng lại thiếu Breadcrumbs (IA03-11).
