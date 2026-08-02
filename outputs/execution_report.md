@@ -101,3 +101,83 @@ Màn hình A1 đáp ứng tốt hầu hết các chỉ tiêu về Navigation (Si
 Chỉ một số ít tiêu chí về Feedback/State có thể quan sát được trên màn hình danh sách sự kiện A1 do hạn chế của ảnh tĩnh:
 - **Điểm sáng**: Màu sắc của các trạng thái Event (Published, Draft...) được gán đúng theo ý nghĩa. Các action phá hủy có sẵn màu báo động.
 - **Điểm yếu (Fail - Usability)**: Ở cột LECTURERS và STUDENTS (ảnh Screenshot 2), dung lượng người đăng ký chỉ được hiển thị dưới dạng chữ (VD: `16 / 100`), buộc người quản trị phải tự tính nhẩm tỷ lệ lấp đầy. Hệ thống bắt buộc nên sử dụng thanh ProgressBar (thanh phần trăm) để nâng cao độ trực quan theo yêu cầu của tiêu chí **IA04-10**.
+
+---
+
+# Phân tích màn hình A2_add_edit_event (Add/Edit Event Form)
+
+Dựa trên HTML (`page.html`) và các ảnh chụp màn hình cho kịch bản A2 (Form tạo sự kiện), dưới đây là kết quả phân tích theo các tiêu chí IA01, IA02, IA03 và IA04:
+
+## IA-01 — General UI Standards
+
+| Item ID | Trạng thái | Notes / Phân tích chi tiết |
+| :--- | :--- | :--- |
+| **IA01-01** | Pass | Form có layout phân cấp card tốt. Các khối (Thumbnail, Basic Information...) được nhóm bằng khung viền bo tròn, đệm lót (padding) nhất quán. |
+| **IA01-02** | Pass | Các icon ở Sidebar và các icon tiện ích (upload ảnh, tệp tin) đều đồng nhất về kích thước (24x24 hoặc 48x48) và độ dày nét vẽ (stroke-width="2"). |
+| **IA01-03** | Pass | Nút Call-to-action chính "Publish" sử dụng màu xanh lơ (cyan) làm nổi bật, trong khi nút "Save as Draft" hoặc "Preview Event" chỉ có viền màu. Phân cấp nút rõ ràng. |
+| **IA01-04** | Pass | Tiêu đề các vùng (Section headers như "Basic Information", "Location & Organization") được phân biệt rõ với nhãn trường (Field labels như "Event Title *") bằng kích thước font và độ đậm (`text-lg font-semibold` vs `text-sm font-medium`). |
+| **IA01-05** | N/A | Người dùng báo cáo hệ thống không hiển thị thẻ trạng thái trên form này (kể cả ở màn hình Edit). |
+| **IA01-06** | N/A | Empty states không áp dụng cho cấu trúc của Form tạo mới. |
+| **IA01-07** | Pass | Hệ thống có hiển thị spinner ngay tại nút bấm trong lúc chờ tải (đã kiểm chứng thủ công). |
+| **IA01-08** | Pass | Tính năng chuyển đổi ngôn ngữ EN/VI hoạt động bình thường, layout ổn định. |
+| **IA01-09** | Pass | Định dạng ngày tháng thay đổi tự động và bình thường theo locale ngôn ngữ. |
+| **IA01-10** | N/A | Hero Banner chỉ áp dụng cho trang chủ Public. |
+| **IA01-11** | N/A | Tính năng mã QR chỉ áp dụng ở màn hình Check-in. |
+| **IA01-12** | Pass | Mã nguồn HTML có ghi nhận các lớp CSS xử lý focus (`data-[focus-visible=true]:outline-focus`) cho input, đảm bảo nhận diện khi Tab. |
+| **IA01-13** | Pass | Logo ở thanh bên và các ảnh chức năng có thuộc tính `alt` hoặc dùng `aria-hidden="true"` đối với ảnh trang trí. |
+
+## IA-02 — Forms
+
+| Item ID | Trạng thái | Notes / Phân tích chi tiết |
+| :--- | :--- | :--- |
+| **IA02-01** | **Fail** | Dấu hoa thị `*` hiển thị trực quan ở nhãn (VD: `Event Title *`, `Campus *`), tuy nhiên thẻ `<input>` trong HTML hoàn toàn thiếu thuộc tính `required` hoặc `aria-required`. Trình đọc màn hình (Screen reader) sẽ không biết đây là trường bắt buộc. |
+| **IA02-02** | Pass | Nhãn trường (Label) nằm độc lập phía trên input, không bị biến mất khi người dùng nhập liệu (không lạm dụng placeholder). |
+| **IA02-03** | **Fail** | Khu vực Upload thiếu các thông tin quan trọng trước khi tải file: "Thumbnail" / "Banner" chỉ ghi tỉ lệ (ratio) mà không ghi định dạng file (JPG/PNG) hay giới hạn dung lượng (MB). Khu vực "Attachments" có ghi "Supported any file format" nhưng vẫn bỏ ngỏ giới hạn dung lượng và số lượng file. |
+| **IA02-04** | Pass | Hệ thống giới hạn chặt ngay từ hộp thoại chọn file của OS (chỉ cho phép chọn ảnh). |
+| **IA02-05** | **Fail** | Trình soạn thảo văn bản Rich-text Editor có một loạt các nút bấm chỉ chứa icon (Bold, Italic...), tuy nhiên HTML hoàn toàn không có thuộc tính `title` hay `aria-label` để cung cấp tooltip/chú thích chức năng cho các nút này. |
+| **IA02-06** | Pass | Bắt lỗi ngày giờ không hợp lệ bình thường, hiển thị thông báo lỗi ngay tại trường vi phạm (dù không tự cuộn trang đến đó). |
+| **IA02-07** | **Fail** | Mục "Additional Options" có công tắc (toggle switch) "Allow Additional Role" nhưng hoàn toàn **thiếu đoạn text mô tả/hướng dẫn (helper text)** bên dưới để giải thích chức năng theo yêu cầu của Checklist. |
+| **IA02-08** | Pass | Bắt lỗi để trống trường bắt buộc, hiển thị lỗi trực tiếp tại ô input. |
+| **IA02-09** | Pass | Hệ thống ép nhập và ngăn chặn submit khi thiếu trường bắt buộc. |
+| **IA02-10** | **Fail** | Tính năng submit bằng phím Enter không hoạt động, người dùng bắt buộc phải dùng chuột bấm nút "Publish". |
+| **IA02-11** | **Fail** | Dù hiển thị đúng ngày giờ hiện tại, nhưng bộ chọn (Date picker) chỉ cho click chuột, không cho phép gõ phím trực tiếp (type) gây ảnh hưởng tới Accessibility. |
+| **IA02-12** | Pass | Thao tác điều hướng bằng phím (Keyboard Navigation) cho nhóm công tắc/dropdown hoạt động tốt và trơn tru. |
+| **IA02-13** | Pass | Không hiển thị cảnh báo khi back, NHƯNG hệ thống tự động lưu nháp (auto-save draft) và cho phép phục hồi khi vào lại, đáp ứng tốt tiêu chí ngăn chặn mất dữ liệu (data loss). |
+| **IA02-14** | Pass | Định dạng rich-text (đậm, nghiêng...) được bảo toàn bình thường sau khi lưu và tải lại. |
+| **IA02-15** | N/A | Việc mapping cấu hình Additional Role tới form B3 cần luồng tham gia sự kiện. |
+
+## IA-03 — Navigation
+
+| Item ID | Trạng thái | Notes / Phân tích chi tiết |
+| :--- | :--- | :--- |
+| **IA03-01** | Pass | Sidebar hiển thị nổi bật mục "Events Management". |
+| **IA03-02** | N/A | Màn hình không có hệ thống Tab. |
+| **IA03-03** | Pass | Sidebar có huy hiệu đếm số thông báo pending (VD: số 7 ở Support requests). |
+| **IA03-04** | Pass | Phía trên bên trái của form có nút icon "←" (`lucide-arrow-left`) để quay về trang trước. |
+| **IA03-05** | N/A | Không có tính năng status filter trên trang tạo form. |
+| **IA03-06** | N/A | Phân trang không áp dụng. |
+| **IA03-07** | N/A | Deep-links cần thao tác thủ công. |
+| **IA03-08** | N/A | Bảng dữ liệu không áp dụng. |
+| **IA03-09** | N/A | Bối cảnh header đa tab không áp dụng. |
+| **IA03-10** | N/A | Modal / phím ESC không áp dụng (ảnh không có modal). |
+| **IA03-11** | N/A | Đây là màn hình cấp 2 (List -> Form), chưa đến cấp 3 để xuất hiện Breadcrumbs. |
+| **IA03-12** | N/A | Không có danh sách order (kéo thả) nào trên form. |
+| **IA03-13** | N/A | Browser back button không thể kiểm chứng tĩnh. |
+| **IA03-14** | N/A | Không thuộc màn hình Support requests. |
+| **IA03-15** | N/A | Trải nghiệm duyệt public không áp dụng. |
+
+## IA-04 — Feedback / State
+
+*(Hầu hết tiêu chí của IA-04 đều yêu cầu tương tác hoặc liên quan đến màn hình khác, do đó đối với ảnh tĩnh của màn hình A2 Add/Edit Form, phần lớn là N/A).*
+
+| Item ID | Trạng thái | Notes / Phân tích chi tiết |
+| :--- | :--- | :--- |
+| **IA04-04 & IA04-12** | **Fail** | Hoàn toàn không có thông báo Toast nào xuất hiện sau khi thao tác submit/save sự kiện thành công. |
+| **IA04-11** | **Fail** | Xử lý mất mạng (Offline) kém thân thiện: hệ thống xoay spinner một lúc rồi báo trực tiếp lỗi kỹ thuật "failed to fetch" ra màn hình. |
+| **Các tiêu chí IA04 khác** | N/A | Không áp dụng cho giao diện hoặc chưa có đủ bối cảnh kiểm thử (như IA04-01, IA04-02). |
+
+### Kết luận A2
+Màn hình A2 đảm bảo tốt tính đồng nhất về nhận diện hình ảnh (UI Standards - IA01) như font chữ phân cấp, icon và màu nút bấm. Tuy nhiên, tồn tại **nhiều lỗi nghiêm trọng về biểu mẫu (Forms - IA02)**:
+1. Thiếu cảnh báo dung lượng/định dạng khi upload file (IA02-03).
+2. Thiếu thuộc tính trợ năng `required` cho các trường bắt buộc (IA02-01) và `title` cho các nút ở trình soạn thảo Rich-text (IA02-05).
+3. Thiếu văn bản hướng dẫn bổ sung cho các công tắc chức năng (IA02-07).
