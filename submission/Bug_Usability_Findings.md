@@ -27,3 +27,4 @@
 | IA03-13 | A4_review | Bug | Nút Browser Back Button gây mất dữ liệu đánh giá đang làm dở, reset toàn bộ trạng thái. | Thay đổi đánh giá rồi bấm Back | High | Hiển thị cảnh báo Unsaved changes khi bấm Back. |  | 02/08/2026 |
 | IA04-04 & IA04-12 | A4_review | Usability | Hoàn toàn không có thông báo Toast sau khi thực hiện thao tác duyệt/từ chối thành công. | Bấm Apply thay đổi và quan sát | High | Thêm Toast message báo hiệu thành công. |  | 02/08/2026 |
 | IA04-11 | A4_review | Bug | Khi mất mạng, hệ thống không báo lỗi gì và giao diện bị kẹt cứng (không thể chuyển tab). | Ngắt mạng và chuyển tab | High | Hiển thị thông báo mất kết nối mạng và chặn các thao tác. |  | 02/08/2026 |
+| CP-01 | Login (Mobile) | Bug | Trên điện thoại, UI bị vỡ hoàn toàn gây khó khăn cực kỳ ở bước đăng nhập. | Truy cập trang đăng nhập trên điện thoại (Android/Opera) | Critical | Chỉnh sửa responsive CSS cho màn hình nhỏ. | phone_opera.png | 02/08/2026 |
